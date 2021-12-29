@@ -28,7 +28,7 @@
         />
         <div class="card-body">
           <h5 class="card-title">{{ hero.name }}</h5>
-          <p @click="pushHeroi(hero.id)" class="btn btn-danger">Ver Mais</p>
+          <p @click="pushHero(hero.id)" class="btn btn-danger">Ver Mais</p>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
         />
         <div class="card-body">
           <h5 class="card-title">{{ hero.name }}</h5>
-          <p @click="pushHeroi(hero.id)" class="btn btn-danger">Ver Mais</p>
+          <p @click="pushHero(hero.id)" class="btn btn-danger">Ver Mais</p>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     //redireciona o usuário para a rota de Detalhes concatenando o id correspondente ao heroi selecionado
-    pushHeroi(id) {
+    pushHero(id) {
       window.location.href = "/detalhes/" + id;
     },
     //método de busca simples

@@ -6,10 +6,11 @@
     aria-label="Close"
     style="margin-top: 2rem; margin-left: 2rem"
   ></a>
+
   <div class="detalhes">
-    {{ printHeroi() }}
-    <h1>{{ heroi.name }}</h1>
-    <p style="padding:0 12.3rem">{{ heroi.description }}</p>
+    {{ printHero() }}
+    <h1>{{ hero.name }}</h1>
+    <p style="padding:0 12.3rem">{{ hero.description }}</p>
     <div class="list">
       <h2>Series:</h2>
       <ul v-for="serie in series" :key="serie.id">
@@ -40,26 +41,29 @@
 </template>
 
 <script>
+//arquivo que conecta com a API da marvel
 import api from "@/services/api.js";
 
 export default {
   name: "Detalhes",
   data() {
     return {
-      herois: [],
-      url: this.$route.params.username,
-      heroi: [],
-      series: [],
-      events: [],
-      comics: [],
-      links: [],
+      hero_list: [], //recebe os dados da API
+      url: this.$route.params.username, //recebe o id passado como parâmetro na URL
+      hero: [], //recebe o heroi específico
+      series: [], //recebe as series específicas
+      events: [], //recebe os eventos específicos
+      comics: [], //recebe as HQ's específicas
+      links: [], //recebe os links específicos
     };
   },
   methods: {
-    printHeroi() {
-      this.herois.forEach((element) => {
+    //mostra os dados do heroi ao iniciar o app
+    printHero() {
+      //busca na lista de herois um heroi compativel com o ID
+      this.hero_list.forEach((element) => {
         if (element.id == this.url) {
-          this.heroi = element;
+          this.hero = element;
           this.series = element.series.items;
           this.events = element.events.items;
           this.comics = element.comics.items;
@@ -77,7 +81,7 @@ export default {
       )
       .then((response) => {
         console.log(response.data.data.results);
-        this.herois = response.data.data.results;
+        this.hero_list = response.data.data.results;
       });
   },
 };
