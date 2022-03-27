@@ -1,18 +1,12 @@
-# heros-marvel
+# Heros Marvel
 
-### rodar o projeto
+### To run this project on your machine you will need two directories (node_modules and package-lock.json).
+### To create these files you need to have Node.js and NPM installed.
+### Open the project folder in a terminal and run the following command:
+```
+npm install
+```
+### Note that the aforementioned files were created on your system. Now to run the project you need to use the command:
 ```
 npm run serve
-```
-### componentes externos utilizados:
-```
-Axios (última versão) para conexão com a API
-```
-Bootstrap via CDN (biblioteca de CSS)
-
-### Pontos não entregues:
-```
-A página de favoritos infelizmente não foi entregue por falta de tempo devido a contratempos pessoais. E como mencionado no bate papo, esse foi o meu primeiro projeto em Vue.js por tanto todo tempo seria muito útil e para não atrasar a entrega estou enviando hoje.
-Agradeço a oportunidade e espero que gostem! Foi muito divertido criar esse projeto. Obrigado pela oportunidade.
-OBS: infelizmente não consegui criar a imagem Docker
 ```
