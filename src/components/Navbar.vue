@@ -7,7 +7,7 @@
     <a
       target="_blank"
       @click="mixpanel('Contato WhatsApp')"
-      class="btn btn-primary"
+      class="btn btn-primary btn-md d-flex align-items-center"
       href="https://api.whatsapp.com/send?phone=554197475217&text=Ol%C3%A1,%20quero%20mais%20informa%C3%A7%C3%B5es"
     >
       Quero meu site

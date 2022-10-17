@@ -2,18 +2,19 @@
   <div class="home bg-blue-secondary p-4">
     <form class="d-flex mb-3">
       <input
-        class="form-control"
+        class="form-control me-2"
         type="search"
         placeholder="Buscar"
         v-model="nameHero"
       />
+      <button class="btn btn-primary" v-on:click.prevent="filteredList()">Search</button>
     </form>
 
     <div v-show="showCards" class="row justify-content-around">
       <sync-loader class="w-100 text-center mt-5" :loading="loading" color="#0d6efd"></sync-loader>
       <div
         @click="goToDetails(hero)"
-        class="card bg-blue-tertiary mb-5 p-0"
+        class="card bg-blue-tertiary my-3 p-0"
         style="width: 242px"
         v-for="hero in filteredList"
         :key="hero.id"

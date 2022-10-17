@@ -1,35 +1,35 @@
 <template>
   <sync-loader style="height: 100vh" class="w-100 bg-blue-secondary text-center pt-5" v-if="loading" :loading="loading" color="#0d6efd"></sync-loader>
-  <div v-else class="details bg-blue-secondary">
+  <div v-else class="details bg-blue-secondary p-4">
     <div class="d-flex w-100">
       <a
         href="/"
         type="button"
-        class="btn-close btn-close-white mt-3 ms-4"
+        class="btn-close btn-close-white"
         aria-label="Close"
       ></a>
     </div>
     <h1 class="text-white">{{ hero.name }}</h1>
-    <p class="text-white" style="padding:0 12.3rem">{{ hero.description }}</p>
-    <div class="list">
+    <p class="text-white">{{ hero.description }}</p>
+    <div v-if="series.length" class="list">
       <h2 class="text-white">Series:</h2>
       <ul v-for="serie in series" :key="serie.id">
         <li class="text-white">{{ serie.name }}</li>
       </ul>
     </div>
-    <div class="list">
+    <div v-if="events.length" class="list">
       <h2 class="text-white">Eventos:</h2>
       <ul v-for="event in events" :key="event.id">
         <li class="text-white">{{ event.name }}</li>
       </ul>
     </div>
-    <div class="list">
+    <div v-if="comics.length" class="list">
       <h2 class="text-white">HQ's:</h2>
       <ul v-for="comic in comics" :key="comic.id">
         <li class="text-white">{{ comic.name }}</li>
       </ul>
     </div>
-    <div class="list">
+    <div v-if="links.length" class="list">
       <h2 class="text-white">Saiba mais em:</h2>
       <ul v-for="link in links" :key="link.id">
         <li class="text-white">
@@ -99,12 +99,11 @@ export default {
 
 <style scoped lang="scss">
 .details {
-  height: 100%;
+  min-height: 100vh;
   text-align: center;
   padding-bottom: 2rem;
 }
 .list {
   text-align: start;
-  padding-left: 15vw;
 }
 </style>
