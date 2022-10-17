@@ -42,7 +42,6 @@
 </template>
 
 <script>
-//arquivo que conecta com a API da marvel
 import api from "@/services/api.js";
 import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 
@@ -75,9 +74,7 @@ export default {
         console.log(error)
       }
     },
-    //mostra os dados do heroi ao iniciar o app
     showHero() {
-      //busca na lista de herois um heroi compativel com o ID
       this.heroList.forEach((element) => {
         if (element.id == this.url) {
           this.hero = element;

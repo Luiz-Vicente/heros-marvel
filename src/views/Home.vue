@@ -12,7 +12,7 @@
     <div v-show="showCards" class="row justify-content-around">
       <sync-loader class="w-100 text-center mt-5" :loading="loading" color="#0d6efd"></sync-loader>
       <div
-        @click="goToDetails(hero.id)"
+        @click="goToDetails(hero)"
         class="card bg-blue-tertiary mb-5 p-0"
         style="width: 242px"
         v-for="hero in filteredList"
@@ -25,8 +25,7 @@
           :alt="hero.name"
         />
         <div class="card-body">
-          <p class="card-title text-white">{{ hero.name }}</p>
-          <p class="btn btn-danger">Ver Mais</p>
+          <p class="card-title text-white text-center">{{ hero.name }}</p>
         </div>
       </div>
     </div>
@@ -34,8 +33,8 @@
 </template>
 
 <script>
-import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
-//arquivo que conecta com a API da marvel
+import SyncLoader from 'vue-spinner/src/SyncLoader.vue';
+import { trakcer } from '@/services/tracker.js';
 import api from "@/services/api.js";
 
 export default {
@@ -53,29 +52,31 @@ export default {
   components: {
     SyncLoader
   },
-  mounted() {
-    this.loading = true;
-    api
-      .get(
-        "v1/public/characters?ts=1640212576&apikey=d1283b4d024b37009288459ead0ea7ea&hash=1ea41f7e69249d72e718c14b6cccd430&limit=100"
-      )
-      .then((response) => {
-        console.log(response.data.data.results);
-        this.heroList = response.data.data.results; //atribuição dos resultados
-        this.loading = false;
-      });
-  },
   methods: {
-    //redireciona o usuário para a rota de Detalhes concatenando o id correspondente ao heroi selecionado
-    goToDetails(id) {
-      window.location.href = "/detalhes/" + id;
+    goToDetails(hero) {
+      trakcer('Details', { 'hero': hero.name });
+      window.location.href = "/detalhes/" + hero.id;
     },
+    async getHeros() {
+      this.loading = true;
+      try {
+        const response = await api.get("v1/public/characters?ts=1640212576&apikey=d1283b4d024b37009288459ead0ea7ea&hash=1ea41f7e69249d72e718c14b6cccd430&limit=100")
+        this.heroList = response.data.data.results;
+        this.loading = false;
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
   computed: {
     filteredList() {
       return this.heroList.filter((hero) => hero.name.toLowerCase().includes(this.nameHero.toLowerCase()));
     }
-  }
+  },
+  mounted() {
+    trakcer('Home');
+    this.getHeros();
+  },
 };
 </script>
 

@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/detalhes/:userId',
     name: 'Detalhes',
-    component: () => import(/* webpackChunkName: "detalhes" */ '../views/Detalhes.vue')
+    component: () => import(/* webpackChunkName: "detalhes" */ '../views/Details.vue')
   },
 ]
 
