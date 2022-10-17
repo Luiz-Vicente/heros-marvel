@@ -1,38 +1,39 @@
 <template>
-  <a
-    href="/"
-    type="button"
-    class="btn-close btn-close-white"
-    aria-label="Close"
-    style="margin-top: 2rem; margin-left: 2rem"
-  ></a>
-
-  <div class="detalhes">
-    {{ printHero() }}
-    <h1>{{ hero.name }}</h1>
-    <p style="padding:0 12.3rem">{{ hero.description }}</p>
+  <sync-loader style="height: 100vh" class="w-100 bg-blue-secondary text-center pt-5" v-if="loading" :loading="loading" color="#0d6efd"></sync-loader>
+  <div v-else class="detalhes bg-blue-secondary">
+    <div class="d-flex w-100">
+      <a
+        href="/"
+        type="button"
+        class="btn-close btn-close-white"
+        aria-label="Close"
+        style="margin-top: 2rem; margin-left: 2rem"
+      ></a>
+    </div>
+    <h1 class="text-white">{{ hero.name }}</h1>
+    <p class="text-white" style="padding:0 12.3rem">{{ hero.description }}</p>
     <div class="list">
-      <h2>Series:</h2>
+      <h2 class="text-white">Series:</h2>
       <ul v-for="serie in series" :key="serie.id">
-        <li>{{ serie.name }}</li>
+        <li class="text-white">{{ serie.name }}</li>
       </ul>
     </div>
     <div class="list">
-      <h2>Eventos:</h2>
+      <h2 class="text-white">Eventos:</h2>
       <ul v-for="event in events" :key="event.id">
-        <li>{{ event.name }}</li>
+        <li class="text-white">{{ event.name }}</li>
       </ul>
     </div>
     <div class="list">
-      <h2>HQ's:</h2>
+      <h2 class="text-white">HQ's:</h2>
       <ul v-for="comic in comics" :key="comic.id">
-        <li>{{ comic.name }}</li>
+        <li class="text-white">{{ comic.name }}</li>
       </ul>
     </div>
     <div class="list">
-      <h2>Saiba mais em:</h2>
+      <h2 class="text-white">Saiba mais em:</h2>
       <ul v-for="link in links" :key="link.id">
-        <li>
+        <li class="text-white">
           <a :href="link.url">{{ link.type }}</a>
         </li>
       </ul>
@@ -43,25 +44,41 @@
 <script>
 //arquivo que conecta com a API da marvel
 import api from "@/services/api.js";
+import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 
 export default {
   name: "Detalhes",
   data() {
     return {
-      hero_list: [], //recebe os dados da API
-      url: this.$route.params.username, //recebe o id passado como parâmetro na URL
-      hero: [], //recebe o heroi específico
-      series: [], //recebe as series específicas
-      events: [], //recebe os eventos específicos
-      comics: [], //recebe as HQ's específicas
-      links: [], //recebe os links específicos
+      loading: true,
+      heroList: [],
+      url: this.$route.params.userId,
+      hero: [],
+      series: [],
+      events: [],
+      comics: [],
+      links: [],
     };
   },
+  components: {
+    SyncLoader
+  },
   methods: {
+    async getHeros() {
+      this.loading = true;
+      try {
+        const response = await api.get("v1/public/characters/" + this.url + "?ts=1640212576&apikey=d1283b4d024b37009288459ead0ea7ea&hash=1ea41f7e69249d72e718c14b6cccd430");
+        this.heroList = response.data.data.results;
+        this.showHero();
+        this.loading = false;
+      } catch (error) {
+        console.log(error)
+      }
+    },
     //mostra os dados do heroi ao iniciar o app
-    printHero() {
+    showHero() {
       //busca na lista de herois um heroi compativel com o ID
-      this.hero_list.forEach((element) => {
+      this.heroList.forEach((element) => {
         if (element.id == this.url) {
           this.hero = element;
           this.series = element.series.items;
@@ -73,16 +90,7 @@ export default {
     },
   },
   mounted() {
-    api
-      .get(
-        "v1/public/characters/" +
-          this.url +
-          "?ts=1640212576&apikey=d1283b4d024b37009288459ead0ea7ea&hash=1ea41f7e69249d72e718c14b6cccd430"
-      )
-      .then((response) => {
-        console.log(response.data.data.results);
-        this.hero_list = response.data.data.results;
-      });
+    this.getHeros();
   },
 };
 </script>
