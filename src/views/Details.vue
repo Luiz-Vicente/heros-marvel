@@ -5,9 +5,8 @@
       <a
         href="/"
         type="button"
-        class="btn-close btn-close-white"
+        class="btn-close btn-close-white mt-3 ms-4"
         aria-label="Close"
-        style="margin-top: 2rem; margin-left: 2rem"
       ></a>
     </div>
     <h1 class="text-white">{{ hero.name }}</h1>
@@ -43,7 +42,8 @@
 
 <script>
 import api from "@/services/api.js";
-import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
+import SyncLoader from 'vue-spinner/src/SyncLoader.vue';
+import { track } from '@/services/tracker.js';
 
 export default {
   name: "Details",
@@ -88,6 +88,7 @@ export default {
           this.links = element.urls;
         }
       });
+      track('Details', { 'hero': this.hero.name });
     },
   },
   mounted() {

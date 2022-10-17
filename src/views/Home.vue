@@ -34,7 +34,7 @@
 
 <script>
 import SyncLoader from 'vue-spinner/src/SyncLoader.vue';
-import { trakcer } from '@/services/tracker.js';
+import { track } from '@/services/tracker.js';
 import api from "@/services/api.js";
 
 export default {
@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     goToDetails(hero) {
-      trakcer('Details', { 'hero': hero.name });
       window.location.href = "/detalhes/" + hero.id;
     },
     async getHeros() {
@@ -78,7 +77,7 @@ export default {
     }
   },
   mounted() {
-    trakcer('Home');
+    track('Home');
     this.getHeros();
   },
 };
