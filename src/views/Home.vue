@@ -64,7 +64,11 @@ export default {
         this.heroList = response.data.data.results;
         this.loading = false;
       } catch (error) {
-        console.log(error);
+        this.$notify({
+          type: 'error',
+          title: `Unexpected error (${error})`,
+          text: "Unable to fetch heroes. Try later!",
+        });
       }
     }
   },

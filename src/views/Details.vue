@@ -1,6 +1,6 @@
 <template>
   <sync-loader style="height: 100vh" class="w-100 bg-blue-secondary text-center pt-5" v-if="loading" :loading="loading" color="#0d6efd"></sync-loader>
-  <div v-else class="detalhes bg-blue-secondary">
+  <div v-else class="details bg-blue-secondary">
     <div class="d-flex w-100">
       <a
         href="/"
@@ -46,7 +46,7 @@ import api from "@/services/api.js";
 import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 
 export default {
-  name: "Detalhes",
+  name: "Details",
   data() {
     return {
       loading: true,
@@ -71,7 +71,11 @@ export default {
         this.showHero();
         this.loading = false;
       } catch (error) {
-        console.log(error)
+        this.$notify({
+          type: 'error',
+          title: `Unexpected error (${error})`,
+          text: "Unable to fetch heroes. Try later!",
+        });
       }
     },
     showHero() {
@@ -93,7 +97,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.detalhes {
+.details {
   height: 100%;
   text-align: center;
   padding-bottom: 2rem;

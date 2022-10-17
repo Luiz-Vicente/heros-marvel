@@ -1,6 +1,7 @@
 <template>
   <Navbar/>
   <router-view/>
+  <notifications class="mt-3 me-4" />
 </template>
 
 <script>
