@@ -26,7 +26,8 @@
           :alt="hero.name"
         />
         <div class="card-body">
-          <p class="card-title text-white text-center">{{ hero.name }}</p>
+          <p class="card-title text-white text-center mb-2">{{ hero.name }}</p>
+          <button class="btn btn-danger btn-sm w-100 text-small">Ver detalhes</button>
         </div>
       </div>
     </div>
