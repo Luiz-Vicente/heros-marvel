@@ -33,12 +33,12 @@ npm run serve
 ```
 
 
-## Autores
+## Autors
 
 - [@Luiz-Vicente](https://www.github.com/Luiz-Vicente)
 
 
-## Referência
+## Reference
 
  - [API Marvel](https://developer.marvel.com/)
  - [MixPanel](https://mixpanel.com/)
@@ -47,6 +47,6 @@ npm run serve
  - [Bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
 
-## Demonstração
+## Demonstration
 
 [Heros Marvel at Vercel](https://heros-marvel.vercel.app/)
